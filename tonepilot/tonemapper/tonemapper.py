@@ -13,6 +13,8 @@ import numpy as np
 from typing import Dict, List, Tuple, Optional
 from sklearn.preprocessing import MultiLabelBinarizer
 from torch.serialization import add_safe_globals
+import urllib.request
+from pathlib import Path
 
 # Add MultiLabelBinarizer to safe globals for model loading
 add_safe_globals([MultiLabelBinarizer])
@@ -71,18 +73,28 @@ class ToneMapper:
     would be appropriate in a response given the input emotional context.
     """
     
-    def __init__(self, model_path: str = "tonepilot_bert_classifier.pt") -> None:
+    def __init__(self, model_path: Optional[str] = None) -> None:
         """
         Initialize the tone mapper.
         
         Args:
-            model_path (str): Path to the trained model checkpoint
+            model_path (str, optional): Path to the trained model checkpoint.
+                                      If None, uses default cache location.
             
         Raises:
-            FileNotFoundError: If model_path doesn't exist
+            FileNotFoundError: If model_path doesn't exist and download fails
             RuntimeError: If model loading fails
         """
         try:
+            # Determine model path
+            if model_path is None:
+                model_path = self._get_default_model_path()
+            
+            # Download model if not found locally
+            if not os.path.exists(model_path):
+                print(f"Model not found at {model_path}, downloading...")
+                self._download_model(model_path)
+            
             # Load checkpoint on CPU for compatibility
             checkpoint = torch.load(model_path, map_location='cpu', weights_only=False)
             
@@ -139,6 +151,57 @@ class ToneMapper:
         else:
             print("MPS not available, using CPU")
         return torch.device("cpu")
+
+    def _download_model(self, model_path: str) -> None:
+        """Download the BERT classifier model from GitHub releases."""
+        model_url = "https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt"
+        
+        try:
+            print("Downloading BERT classifier model (475 MB)...")
+            print("This may take a few minutes on first run...")
+            
+            # Create directory if it doesn't exist
+            Path(model_path).parent.mkdir(parents=True, exist_ok=True)
+            
+            # Download with progress indication
+            def progress_hook(block_num, block_size, total_size):
+                if total_size > 0:
+                    percent = min(100, (block_num * block_size * 100) // total_size)
+                    if block_num % 100 == 0:  # Update every 100 blocks
+                        print(f"Progress: {percent}%")
+            
+            urllib.request.urlretrieve(model_url, model_path, progress_hook)
+            print(f"Model downloaded successfully to {model_path}")
+            
+        except Exception as e:
+            raise RuntimeError(f"Failed to download model: {str(e)}")
+
+    def _get_default_model_path(self) -> str:
+        """Get the default path for the model file."""
+        # Try multiple locations in order of preference
+        
+        # 1. Current working directory (for backward compatibility)
+        current_dir_path = "tonepilot_bert_classifier.pt"
+        if os.path.exists(current_dir_path):
+            return current_dir_path
+        
+        # 2. User's home cache directory
+        home_cache = Path.home() / ".cache" / "tonepilot" / "tonepilot_bert_classifier.pt"
+        if home_cache.exists():
+            return str(home_cache)
+        
+        # 3. Package directory (if installed from wheel)
+        try:
+            import tonepilot
+            package_dir = Path(tonepilot.__file__).parent.parent
+            package_model = package_dir / "tonepilot_bert_classifier.pt"
+            if package_model.exists():
+                return str(package_model)
+        except:
+            pass
+        
+        # 4. Default to cache directory for new download
+        return str(home_cache)
 
     def map_tags(self, input_tags: Dict[str, float], top_k: int = 3) -> Tuple[Dict[str, bool], Dict[str, float]]:
         """

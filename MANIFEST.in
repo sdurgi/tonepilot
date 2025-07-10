@@ -3,6 +3,5 @@ include LICENSE
 include pyproject.toml
 recursive-include tonepilot *.py
 recursive-include tonepilot/config *.yaml *.yml
-include tonepilot_bert_classifier.pt
 exclude .env
 exclude *.pth *.ckpt *.bin *.safetensors 

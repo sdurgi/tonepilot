@@ -147,7 +147,7 @@ TonePilot uses a sophisticated multi-stage pipeline:
 
 ## Model Downloads
 
-TonePilot uses a custom-trained BERT classifier for tone mapping. The model file is automatically included when you install via PyPI, but you can also download it separately:
+TonePilot uses a custom-trained BERT classifier for tone mapping. **The model is automatically downloaded on first use** - no manual installation required!
 
 ### BERT Tone Classifier
 
@@ -156,16 +156,24 @@ TonePilot uses a custom-trained BERT classifier for tone mapping. The model file
 - **Purpose**: Maps detected emotions to appropriate response personalities
 - **Training**: Custom-trained on emotional response datasets
 
-**Manual Installation** (if needed):
-```bash
-# Download to your project directory
-wget https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt
+### Automatic Model Management
 
-# Or using curl
+TonePilot automatically handles model downloads and caching:
+
+1. **First Run**: Downloads model to `~/.cache/tonepilot/` (one-time, ~475 MB)
+2. **Subsequent Runs**: Uses cached model for instant loading
+3. **Fallback Locations**: Also checks current directory and package directory
+
+**Manual Download** (if needed):
+```bash
+# Only needed if automatic download fails
+wget https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt -P ~/.cache/tonepilot/
+
+# Or place in current directory
 curl -L -o tonepilot_bert_classifier.pt https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt
 ```
 
-The model is automatically loaded when you use TonePilot's tone mapping functionality.
+**Note**: Internet connection required only on first use for model download.
 
 ## Examples
 

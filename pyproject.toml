@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tonepilot"
-version = "0.1.0"
+version = "0.1.2"
 description = "Emotional intelligence for text generation - detect emotional tones and generate contextually appropriate responses"
 readme = "README.md"
 license = {text = "MIT"}
