@@ -5,7 +5,7 @@ This module provides a responder implementation that uses HuggingFace's
 transformers for text generation.
 """
 
-from typing import Optional, Tuple
+from typing import Tuple
 from transformers import pipeline
 from .base_responder import BaseResponder
 
@@ -35,7 +35,7 @@ class HuggingFaceResponder(BaseResponder):
         except Exception as e:
             raise RuntimeError(f"Failed to initialize HuggingFace model: {str(e)}")
 
-    def _generate_response(self, prompt: str, max_tokens: int) -> Tuple[str, str]:
+    def generate_response(self, prompt: str, max_tokens: int) -> Tuple[str, str]:
         """
         Generate response using HuggingFace model.
         

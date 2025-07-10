@@ -15,21 +15,19 @@ def get_responder(mode: str = 'hf', config_path: Optional[str] = None) -> BaseRe
     Factory function to get the appropriate responder based on mode.
     
     This function creates and returns a responder instance that can generate
-    contextually appropriate responses with specified emotional tones.
+    contextually appropriate responses.
     
     Args:
         mode (str): The mode to use for response generation
             - 'hf': Uses HuggingFace models (default)
             - 'gemini': Uses Google's Gemini model
-        config_path (str, optional): Path to configuration file for customization
-            The config file should be in YAML format with appropriate settings
+        config_path (str, optional): Path to configuration file (currently unused)
             
     Returns:
-        BaseResponder: A responder instance implementing the blend(text, tags, weights) method
+        BaseResponder: A responder instance implementing the generate_response(prompt, max_tokens) method
         
     Raises:
         ValueError: If an unsupported mode is provided
-        FileNotFoundError: If config_path is invalid
         RuntimeError: If responder initialization fails
     """
     if not isinstance(mode, str):
@@ -39,9 +37,9 @@ def get_responder(mode: str = 'hf', config_path: Optional[str] = None) -> BaseRe
     
     try:
         if mode == 'hf':
-            return HuggingFaceResponder(library_path=config_path)
+            return HuggingFaceResponder()
         elif mode == 'gemini':
-            return GeminiResponder(library_path=config_path)
+            return GeminiResponder()
         else:
             raise ValueError(f"Unsupported responder mode: {mode}")
     except Exception as e:

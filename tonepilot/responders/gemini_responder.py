@@ -6,7 +6,7 @@ model for text generation.
 """
 
 import os
-from typing import Optional, Tuple
+from typing import Tuple
 import google.generativeai as genai
 from .base_responder import BaseResponder
 
@@ -20,24 +20,36 @@ class GeminiResponder(BaseResponder):
     
     def _initialize_model(self) -> None:
         """
-        Initialize the Gemini model.
+        Initialize the Gemini model (lazy initialization - only configure when needed).
+        """
+        # Don't initialize here - we'll do it lazily in generate_response
+        self.model = None
+
+    def _ensure_model_initialized(self) -> None:
+        """
+        Ensure the Gemini model is initialized and configured.
+        This is called only when we actually need to generate a response.
             
         Raises:
             ValueError: If API key not set
             RuntimeError: If initialization fails
         """
+        if self.model is not None:
+            return
+            
         try:
-            api_key = os.getenv("GEMINI_API_KEY")
+            api_key = os.getenv("GOOGLE_API_KEY")
             if not api_key:
-                raise ValueError("GEMINI_API_KEY environment variable not set")
+                raise ValueError("GOOGLE_API_KEY environment variable not set")
                 
             genai.configure(api_key=api_key)
+                
             self.model = genai.GenerativeModel("gemini-1.5-pro")
             
         except Exception as e:
             raise RuntimeError(f"Failed to initialize Gemini model: {str(e)}")
 
-    def _generate_response(self, prompt: str, max_tokens: int) -> Tuple[str, str]:
+    def generate_response(self, prompt: str, max_tokens: int) -> Tuple[str, str]:
         """
         Generate response using Gemini model.
         
@@ -51,6 +63,9 @@ class GeminiResponder(BaseResponder):
         Raises:
             RuntimeError: If generation fails
         """
+        # Initialize model only when we actually need to generate
+        self._ensure_model_initialized()
+        
         try:
             # Gemini-specific generation parameters
             # Use max_tokens as a suggestion in the prompt rather than a hard limit
@@ -62,9 +77,8 @@ class GeminiResponder(BaseResponder):
                 "max_output_tokens": max_tokens * 2  # Double the suggested length as maximum
             }
             
-            # Add length suggestion to the prompt
+            # Use the prompt as-is since length suggestion is already included
             final_prompt = prompt.replace("\n\n", "\n").strip()
-            final_prompt += f"\n(Aim to respond in about {max_tokens} words, but feel free to use more if needed to complete your thought.)"
             
             response = self.model.generate_content(
                 final_prompt,

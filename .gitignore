@@ -43,7 +43,14 @@ env/
 ehthumbs.db
 Thumbs.db
 
-# Project specific
+# Project specific - Model files
 *.pt
 *.pth
-*.ckpt 
+*.ckpt
+*.bin
+*.safetensors
+models/
+
+# Large data files
+*.pkl
+*.pickle 

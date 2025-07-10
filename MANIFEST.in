@@ -1,0 +1,8 @@
+include README.md
+include LICENSE
+include pyproject.toml
+recursive-include tonepilot *.py
+recursive-include tonepilot/config *.yaml *.yml
+exclude tonepilot_bert_classifier.pt
+exclude .env
+exclude *.pt *.pth *.ckpt *.bin *.safetensors 

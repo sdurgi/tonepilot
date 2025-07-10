@@ -1,49 +1,31 @@
 """
-Factory module for creating text tone taggers.
-
-This module provides a factory function to create the appropriate tagger instance
-based on the specified mode and configuration.
+Factory for creating emotion taggers.
 """
-
 from typing import Optional
-from tonepilot.taggers.zero_shot_tagger import HuggingFaceTagger
-from tonepilot.taggers.gemini_tagger import GeminiTagger
+from ..taggers.base_tagger import BaseTagger
+from ..taggers.hf_tagger import HFTagger
+from ..taggers.gemini_tagger import GeminiTagger
 
-def get_tagger(mode: str = 'hf', config_path: Optional[str] = None):
+def get_tagger(config_path: Optional[str] = None, mode: Optional[str] = None) -> BaseTagger:
     """
-    Factory function to get the appropriate tagger based on mode.
-    
-    This function creates and returns a tagger instance that can detect emotional
-    tones in text. Supports both HuggingFace and Gemini-based classification.
+    Creates and returns an emotion tagger based on the specified mode.
     
     Args:
-        mode (str): The mode to use for tagging
-            - 'hf': Uses HuggingFace zero-shot classification (default)
-            - 'gemini': Uses Google's Gemini model
-        config_path (str, optional): Path to configuration file for customization
-            The config file should be in YAML format with appropriate settings
+        config_path (str, optional): Path to config file for HF tagger containing custom labels.
+            If None, uses default labels.
+        mode (str, optional): The mode to use ('hf' for HuggingFace or 'gemini' for Gemini).
+            If None, defaults to 'hf'.
             
     Returns:
-        A tagger instance implementing the classify(text) method
+        BaseTagger: An emotion tagger instance
         
     Raises:
-        ValueError: If an unsupported mode is provided
-        FileNotFoundError: If config_path is invalid
-        RuntimeError: If tagger initialization fails
+        ValueError: If an invalid mode is specified
     """
-    if not isinstance(mode, str):
-        raise ValueError("Mode must be a string")
-        
-    mode = mode.lower()
-    
-    try:
-        if mode == 'hf':
-            return HuggingFaceTagger(config_path)
-        elif mode == 'gemini':
-            return GeminiTagger(config_path)
-        else:
-            raise ValueError(f"Unsupported tagger mode: {mode}")
-    except Exception as e:
-        if isinstance(e, ValueError):
-            raise
-        raise RuntimeError(f"Failed to create tagger: {str(e)}") 
+    # Default to HF if no mode specified
+    if mode is None or mode.lower() == 'hf':
+        return HFTagger(config_path)
+    elif mode.lower() == 'gemini':
+        return GeminiTagger()
+    else:
+        raise ValueError(f"Invalid tagger mode: {mode}. Must be 'hf' or 'gemini'") 
