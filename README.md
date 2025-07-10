@@ -26,10 +26,13 @@
 
 ## 📦 Installation
 
+**Install from PyPI:**
 
 ```bash
 pip install tonepilot
 ```
+
+📋 **View on PyPI**: [https://pypi.org/project/tonepilot/](https://pypi.org/project/tonepilot/)
 
 ## Quick Start
 
