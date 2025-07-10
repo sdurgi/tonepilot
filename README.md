@@ -134,6 +134,28 @@ TonePilot uses a sophisticated multi-stage pipeline:
 
 **Response Personalities**: empathetic_listener, direct_ally, calming_supporter, practical_helper, and more
 
+## Model Downloads
+
+TonePilot uses a custom-trained BERT classifier for tone mapping. The model file is automatically included when you install via PyPI, but you can also download it separately:
+
+### BERT Tone Classifier
+
+- **File**: `tonepilot_bert_classifier.pt` (475 MB)
+- **Download**: [GitHub Releases](https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt)
+- **Purpose**: Maps detected emotions to appropriate response personalities
+- **Training**: Custom-trained on emotional response datasets
+
+**Manual Installation** (if needed):
+```bash
+# Download to your project directory
+wget https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt
+
+# Or using curl
+curl -L -o tonepilot_bert_classifier.pt https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt
+```
+
+The model is automatically loaded when you use TonePilot's tone mapping functionality.
+
 ## Examples
 
 ### Different Emotional Contexts
@@ -247,4 +269,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with ❤️ for building emotionally intelligent AI systems** 
+**Made with ❤️ for building emotionally intelligent AI systems**
