@@ -43,8 +43,9 @@ env/
 ehthumbs.db
 Thumbs.db
 
-# Project specific - Model files
+# Project specific - Model files (but keep our classifier)
 *.pt
+!tonepilot_bert_classifier.pt
 *.pth
 *.ckpt
 *.bin

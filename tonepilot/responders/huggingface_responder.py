@@ -27,10 +27,11 @@ class HuggingFaceResponder(BaseResponder):
         try:
             self.model = pipeline(
                 "text-generation",
-                model="tiiuae/falcon-7b-instruct",
+                model="microsoft/DialoGPT-small",
                 device=-1,  # Use CPU
-                max_new_tokens=100,
-                torch_dtype="auto"
+                max_new_tokens=50,
+                torch_dtype="auto",
+                pad_token_id=50256  # Set pad token for DialoGPT
             )
         except Exception as e:
             raise RuntimeError(f"Failed to initialize HuggingFace model: {str(e)}")
@@ -50,17 +51,28 @@ class HuggingFaceResponder(BaseResponder):
             RuntimeError: If generation fails
         """
         try:
-            # For HuggingFace, we need to ensure the prompt ends with a space
-            # to prevent token merging issues
-            final_prompt = prompt.rstrip() + " "
+            # DialoGPT works better with a conversational format
+            final_prompt = f"{prompt.rstrip()}\nAssistant:"
             
-            response = self.model(final_prompt, max_new_tokens=max_tokens)
+            response = self.model(
+                final_prompt, 
+                max_new_tokens=min(max_tokens, 50),
+                do_sample=True,
+                temperature=0.7,
+                repetition_penalty=1.1
+            )
             full_text = response[0]['generated_text']
             
             # Extract only the new content after our prompt
             response_text = full_text[len(final_prompt):].strip()
-            if response_text.startswith("AI:"):
-                response_text = response_text[3:].strip()
+            
+            # Clean up the response
+            if response_text.startswith("AI:") or response_text.startswith("Assistant:"):
+                response_text = response_text.split(":", 1)[1].strip()
+            
+            # Stop at newlines or end tokens
+            response_text = response_text.split('\n')[0].strip()
+            response_text = response_text.split('<|endoftext|>')[0].strip()
             
             return response_text, final_prompt
             
