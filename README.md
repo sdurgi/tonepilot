@@ -4,17 +4,28 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-An emotional intelligence system for text generation that detects emotional tones and generates contextually appropriate responses.
+# 🧠 TonePilot  
+**Emotionally Intelligent Prompt & Response Engine for AI Chatbots**
 
-## Features
+> **TonePilot** helps your chatbot *understand the user’s tone and personality*—and respond like a human would.  
+> Whether you're building a customer support bot, a mental health assistant, or a flirty AI companion, TonePilot makes it emotionally resonant and personality-aware.
 
-🎯 **Emotional Tone Detection**: Advanced emotion classification using transformer models  
-🧠 **Intelligent Response Generation**: Context-aware responses with appropriate emotional tones  
-🔧 **Flexible Architecture**: Support for both HuggingFace and Google Gemini models  
-⚡ **Fast Processing**: Optimized pipeline for real-time applications  
-🛠️ **Easy Integration**: Simple CLI and Python API  
+**✨ Free, Open Source, and Built for Multi-LLM Integration.**
 
-## Installation
+---
+
+## 🚀 Features
+
+- 🎯 **Emotion Detection** – Detect nuanced tones like *anxious*, *playful*, *confused* using transformer-based models
+- 🧠 **Emotionally Matched Responses** – Generate emotionally resonant replies using Gemini or Hugging Face
+- 🧩 **Pluggable Architecture** – Easily switch between LLMs or swap in your own tone classifiers
+- 💡 **Prompt-Only OR Full Response Mode** – Get just the enhanced prompt, or the complete reply
+- 🛠️ **CLI + Python API** – Use it in scripts, backends, or with your own chat interface
+
+---
+
+## 📦 Installation
+
 
 ```bash
 pip install tonepilot
