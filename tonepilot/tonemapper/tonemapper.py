@@ -95,8 +95,17 @@ class ToneMapper:
                 print(f"Model not found at {model_path}, downloading...")
                 self._download_model(model_path)
             
+            # Store model path for reference
+            self.model_path = model_path
+            
             # Load checkpoint on CPU for compatibility
             checkpoint = torch.load(model_path, map_location='cpu', weights_only=False)
+            
+            # Check if this is a quantized model
+            is_quantized = checkpoint.get('quantized', False)
+            if is_quantized:
+                print(f"📦 Loading quantized model ({checkpoint.get('quantization_type', 'unknown')})")
+                print(f"   Quantized layers: {checkpoint.get('quantized_layers', 'unknown')}")
             
             # Get model configuration
             tokenizer_name = checkpoint.get('tokenizer_name', 'roberta-base')
@@ -106,11 +115,11 @@ class ToneMapper:
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
             self.model = BERTToneClassifier(tokenizer_name, len(self.label_binarizer.classes_))
             
-            # Load and convert state dict
-            self._load_state_dict(checkpoint['model_state_dict'])
+            # Load and convert state dict (with quantized model support)
+            self._load_state_dict(checkpoint['model_state_dict'], is_quantized)
             
-            # Set up device
-            self.device = self._setup_device()
+            # Set up device (quantized models work better on CPU)
+            self.device = self._setup_device(is_quantized)
             self.model.eval()
             
         except FileNotFoundError:
@@ -118,15 +127,21 @@ class ToneMapper:
         except Exception as e:
             raise RuntimeError(f"Failed to initialize tone mapper: {str(e)}")
     
-    def _load_state_dict(self, state_dict: Dict[str, torch.Tensor]) -> None:
-        """Load and convert model state dict."""
+    def _load_state_dict(self, state_dict: Dict[str, torch.Tensor], is_quantized: bool = False) -> None:
+        """Load and convert model state dict, handling quantized models."""
         new_state_dict = {}
         model_state_keys = set(self.model.state_dict().keys())
         
         for key in state_dict:
             new_key = key.replace('bert.', 'roberta.')
             if new_key in model_state_keys:
-                new_state_dict[new_key] = state_dict[key]
+                tensor = state_dict[key]
+                # Handle quantized tensors
+                if is_quantized and hasattr(tensor, 'dtype') and 'int8' in str(tensor.dtype):
+                    # Dequantize int8 tensors for inference
+                    new_state_dict[new_key] = tensor.dequantize()
+                else:
+                    new_state_dict[new_key] = tensor
         
         missing_keys, unexpected_keys = self.model.load_state_dict(new_state_dict, strict=False)
         if missing_keys:
@@ -134,8 +149,15 @@ class ToneMapper:
         if unexpected_keys:
             print(f"Warning: Unexpected keys: {unexpected_keys}")
     
-    def _setup_device(self) -> torch.device:
+    def _setup_device(self, is_quantized: bool = False) -> torch.device:
         """Set up and test compute device."""
+        # Quantized models work better on CPU
+        if is_quantized:
+            print("🔧 Quantized model detected, using CPU device for optimal performance")
+            device = torch.device("cpu")
+            self.model = self.model.to(device)
+            return device
+            
         if torch.backends.mps.is_available():
             device = torch.device("mps")
             try:
@@ -150,15 +172,18 @@ class ToneMapper:
                 print("Falling back to CPU")
         else:
             print("MPS not available, using CPU")
-        return torch.device("cpu")
+        
+        device = torch.device("cpu")
+        self.model = self.model.to(device)
+        return device
 
     def _download_model(self, model_path: str) -> None:
-        """Download the BERT classifier model from GitHub releases."""
-        model_url = "https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt"
+        """Download the quantized BERT classifier model from GitHub releases."""
+        model_url = "https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier_quantized.pt"
         
         try:
-            print("Downloading BERT classifier model (475 MB)...")
-            print("This may take a few minutes on first run...")
+            print("Downloading quantized BERT classifier model (119 MB)...")
+            print("This may take a minute on first run...")
             
             # Create directory if it doesn't exist
             Path(model_path).parent.mkdir(parents=True, exist_ok=True)
@@ -178,30 +203,43 @@ class ToneMapper:
 
     def _get_default_model_path(self) -> str:
         """Get the default path for the model file."""
-        # Try multiple locations in order of preference
+        # Try multiple locations in order of preference (quantized model first)
         
-        # 1. Current working directory (for backward compatibility)
+        # 1. Current working directory - quantized model first
+        quantized_current = "tonepilot_bert_classifier_quantized.pt"
+        if os.path.exists(quantized_current):
+            return quantized_current
+        
+        # 2. Current working directory - original model (backward compatibility)
         current_dir_path = "tonepilot_bert_classifier.pt"
         if os.path.exists(current_dir_path):
             return current_dir_path
         
-        # 2. User's home cache directory
+        # 3. User's home cache directory - quantized model first
+        home_cache_quantized = Path.home() / ".cache" / "tonepilot" / "tonepilot_bert_classifier_quantized.pt"
+        if home_cache_quantized.exists():
+            return str(home_cache_quantized)
+            
+        # 4. User's home cache directory - original model
         home_cache = Path.home() / ".cache" / "tonepilot" / "tonepilot_bert_classifier.pt"
         if home_cache.exists():
             return str(home_cache)
         
-        # 3. Package directory (if installed from wheel)
+        # 5. Package directory (if installed from wheel) - quantized first
         try:
             import tonepilot
             package_dir = Path(tonepilot.__file__).parent.parent
+            package_model_quantized = package_dir / "tonepilot_bert_classifier_quantized.pt"
+            if package_model_quantized.exists():
+                return str(package_model_quantized)
             package_model = package_dir / "tonepilot_bert_classifier.pt"
             if package_model.exists():
                 return str(package_model)
         except:
             pass
         
-        # 4. Default to cache directory for new download
-        return str(home_cache)
+        # 6. Default to cache directory for new download (quantized model)
+        return str(home_cache_quantized)
 
     def map_tags(self, input_tags: Dict[str, float], top_k: int = 3) -> Tuple[Dict[str, bool], Dict[str, float]]:
         """
@@ -227,8 +265,22 @@ class ToneMapper:
             # Convert input tags to text
             text = ", ".join(input_tags.keys())
             
-            # Get predictions with lower threshold for more candidates
-            predictions = self.predict_tones(text, threshold=0.2)
+            # Get predictions with appropriate threshold (lower for quantized models)
+            # Check if quantized model by looking at model path
+            threshold = 0.05 if 'quantized' in self.model_path else 0.2
+            predictions = self.predict_tones(text, threshold=threshold)
+            
+            # Debug output
+            print(f"🎯 Tone predictions for '{text}' (threshold={threshold}):")
+            for label, prob in predictions[:5]:  # Show top 5
+                print(f"   {label}: {prob:.3f}")
+            
+            # If no predictions found with initial threshold, try lower threshold
+            if not predictions and 'quantized' in self.model_path:
+                print("⚠️  No predictions with 0.05 threshold, trying 0.01...")
+                predictions = self.predict_tones(text, threshold=0.01)
+                if predictions:
+                    print(f"   Found {len(predictions)} predictions with 0.01 threshold")
             
             # Convert to output format
             response_tags = {}

@@ -55,3 +55,16 @@ models/
 # Large data files
 *.pkl
 *.pickle 
+
+# TonePilot specific
+*.pt
+*token*
+temp_models/
+hf_access_token
+pyiptoken.txt
+
+# Development scripts
+dev_scripts/
+
+# macOS
+.DS_Store

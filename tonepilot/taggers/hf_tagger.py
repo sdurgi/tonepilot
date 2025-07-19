@@ -20,8 +20,19 @@ class HFTagger(BaseTagger):
     """
     
     DEFAULT_LABELS = [
-        "curious", "angry", "sad", "excited", "confused",
-        "hopeful", "tired", "scared", "playful", "assertive"
+        # Core emotions (12)
+        "angry", "sad", "excited", "confused", "hopeful", "tired", "scared", 
+        "playful", "curious", "disappointed", "anxious", "overwhelmed",
+        
+        # Social/interpersonal emotions (6)
+        "lonely", "joyful", "enthusiastic", "grateful", "frustrated", "embarrassed",
+        
+        # Personality/communication styles (8) 
+        "assertive", "confident", "insecure", "friendly", "humorous", 
+        "sarcastic", "gentle", "direct",
+        
+        # Cognitive/mental states (4)
+        "analytical", "thoughtful", "inquisitive", "mysterious"
     ]
     
     def __init__(self, config_path: Optional[str] = None) -> None:
@@ -90,7 +101,17 @@ class HFTagger(BaseTagger):
         try:
             result = self.classifier(text, self.labels)
             scores = dict(zip(result["labels"], result["scores"]))
-            return {k: round(float(v), 3) for k, v in scores.items() if float(v) > 0.2}
+            filtered_scores = {k: round(float(v), 3) for k, v in scores.items() if float(v) > 0.2}
+            
+            # If no emotions detected above threshold, add default neutral emotions
+            if not filtered_scores:
+                print("⚠️  No emotions detected above threshold, using defaults")
+                filtered_scores = {
+                    "curious": 0.250,
+                    "thoughtful": 0.220
+                }
+            
+            return filtered_scores
             
         except Exception as e:
             raise RuntimeError(f"Classification failed: {str(e)}") 

@@ -5,7 +5,7 @@ This module provides functionality to blend multiple personality traits
 into coherent prompts for text generation.
 """
 
-import yaml
+import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict
@@ -32,13 +32,16 @@ class PromptBuilder:
         Initialize the prompt builder.
         
         Args:
-            library_path (str, optional): Path to personality library YAML file
+            library_path (str, optional): Path to personality parameters JSON file
         """
         try:
-            # Load personality library
-            library_path = library_path or Path(__file__).parent.parent / "config" / "personality_library.yaml"
+            # Load personality parameters from JSON
+            library_path = library_path or Path(__file__).parent.parent / "config" / "tonepilot_response_personality_parameters.json"
             with open(library_path, 'r') as f:
-                self.library = yaml.safe_load(f)
+                personality_list = json.load(f)
+            
+            # Convert list to dictionary for easier lookup
+            self.personality_params = {item['tag']: item for item in personality_list}
                 
         except Exception as e:
             raise RuntimeError(f"Failed to initialize prompt builder: {str(e)}")
@@ -64,22 +67,41 @@ class PromptBuilder:
             raise ValueError("input_text must be a non-empty string")
             
         try:
-            # Build personality prompt
-            prompt = []
+            # Build personality prompt using tone instructions from JSON
+            prompt_parts = []
+            
+            # If no weights provided, use defaults
+            if not weights:
+                print("⚠️  No personality weights provided, using defaults")
+                weights = {
+                    "supportive": 0.150,
+                    "thoughtful": 0.130,
+                    "helpful": 0.120
+                }
+            
             for tag, weight in weights.items():
-                if tag in self.library:
-                    style = self.library[tag]
+                if tag in self.personality_params:
+                    params = self.personality_params[tag]
+                    tone_instruction = params['tone_instruction']
+                    
                     # Repeat based on weight (1-3 times)
                     repeat = max(1, min(3, round(weight * 3)))
-                    prompt.extend([style.strip()] * repeat)
+                    prompt_parts.extend([tone_instruction.strip()] * repeat)
+                else:
+                    print(f"⚠️  Tag '{tag}' not found in personality parameters, skipping")
             
-            personality_prompt = " ".join(prompt)
+            # If no valid prompt parts found, use default supportive tone
+            if not prompt_parts:
+                print("⚠️  No valid personality parameters found, using default tone")
+                prompt_parts = ["Provide encouragement and positive reinforcement. Help the user feel seen and not alone."]
             
-            # Determine response length
-            length = self._determine_response_length(input_text, weights)
+            personality_prompt = " ".join(prompt_parts)
+            
+            # Calculate response length using the existing method
+            response_length = self._determine_response_length(input_text, weights)
             
             # Generate full prompt with input text and length suggestion
-            full_prompt = f"{personality_prompt}\n\nUser: {input_text}\nAssistant: (Aim to respond in about {length} words)"
+            full_prompt = f"{personality_prompt}\n\nUser: {input_text}\nAssistant: (Aim to respond in about {response_length} words)"
             
             # Return prompt data
             return PromptData(
@@ -87,7 +109,7 @@ class PromptBuilder:
                 personality_prompt=personality_prompt,
                 input_text=input_text,
                 final_prompt=full_prompt,
-                response_length=length
+                response_length=response_length
             )
             
         except Exception as e:
@@ -96,16 +118,33 @@ class PromptBuilder:
     def _determine_response_length(self, input_text: str, 
                                weights: Dict[str, float]) -> int:
         """
-        Determine appropriate response length based on input and personality.
+        Calculate response length using JSON parameters and the formula: base + input(scale).
         
         Args:
             input_text (str): The user's input text
             weights (dict): Confidence scores for response tones
             
         Returns:
-            int: Target response length in tokens
+            int: Target response length in words
         """
-        base_length = len(input_text.split())
-        personality_factor = sum(weights.values())
-        # Allow for longer responses (up to 500 tokens) and increase the multiplier
-        return int(min(500, max(50, base_length * personality_factor * 12))) 
+        input_length = len(input_text.split())
+        total_base = 0
+        total_scale = 0
+        
+        # Accumulate base and scale from personality parameters
+        for tag, weight in weights.items():
+            if tag in self.personality_params:
+                params = self.personality_params[tag]
+                total_base += params['base'] * weight
+                total_scale += params['scale'] * weight
+        
+        # If no valid parameters found, use defaults
+        if total_base == 0 and total_scale == 0:
+            total_base = 30  # Default base length
+            total_scale = 0.8  # Default scale factor
+        
+        # Apply formula: base + input(scale)
+        response_length = int(total_base + (input_length * total_scale))
+        
+        # Ensure reasonable bounds (between 20 and 200 words)
+        return max(20, min(200, response_length)) 

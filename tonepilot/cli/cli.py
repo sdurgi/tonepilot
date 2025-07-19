@@ -48,15 +48,28 @@ def main():
                       help="Model to use for response generation (default: hf)")
     parser.add_argument("--respond", type=str2bool, nargs='?', const=True, default=False,
                       help="Generate a response (default: False, only show prompt). Accepts true/false, yes/no, 1/0")
+    parser.add_argument("--mapper-mode", choices=["local", "hf_api"], default="local",
+                      help="Tone mapping mode: 'local' uses local BERT model, 'hf_api' uses HuggingFace API (default: local)")
     
     args = parser.parse_args()
     
     # Check environment before proceeding
     check_environment(args.mode, args.respond)
     
+    # Check HF API requirements
+    if args.mapper_mode == 'hf_api':
+        if not os.getenv("HF_TOKEN") or not os.getenv("HF_MODEL_ID"):
+            print("\n⚠️  Warning: HF API mode requires environment variables:")
+            print("   - HF_TOKEN: Your Hugging Face API token")
+            print("   - HF_MODEL_ID: Your uploaded model ID (e.g., 'username/tonepilot-bert-classifier')")
+            print("\n   Set them in .env file or environment:")
+            print('   echo "HF_TOKEN=your_token_here" >> .env')
+            print('   echo "HF_MODEL_ID=username/tonepilot-bert-classifier" >> .env')
+            print("\n   Falling back to local mode...\n")
+    
     try:
         # Initialize engine
-        engine = TonePilotEngine(mode=args.mode, respond=args.respond)
+        engine = TonePilotEngine(mode=args.mode, respond=args.respond, mapper_mode=args.mapper_mode)
         
         # Process text
         result = engine.run(args.input_text)
@@ -71,6 +84,8 @@ def main():
         print("\n⚖️  Response tags and weights:")
         for tag, weight in result["response_weights"].items():
             print(f"  - {tag}: {weight:.3f}")
+        
+        print(f"\n🔧 Mapper mode: {result['mapper_mode']}")
             
         # Extract and display the personality part of the prompt
         print("\n🔍 Final prompt:")

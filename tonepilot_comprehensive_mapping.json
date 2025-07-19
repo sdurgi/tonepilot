@@ -1,0 +1,474 @@
+{
+    "model_info": {
+        "name": "TonePilot BERT Classifier",
+        "model_file": "tonepilot_bert_classifier.pt",
+        "huggingface_model": "sdurgi/bert_emotion_response_classifier",
+        "base_model": "roberta-base",
+        "task": "emotion-to-personality tone mapping",
+        "parameters": "125M",
+        "description": "Maps input emotional tones to appropriate response personalities for contextual AI communication"
+    },
+    "input_system": {
+        "name": "HF Tagger (Zero-shot Emotion Detection)",
+        "model": "facebook/bart-large-mnli",
+        "total_input_labels": 30,
+        "description": "Detects emotional tones in user input text using zero-shot classification",
+        "threshold": 0.2,
+        "default_fallback": [
+            "curious",
+            "thoughtful"
+        ],
+        "input_labels": [
+            {
+                "category": "Core Emotions",
+                "count": 12,
+                "labels": [
+                    "angry",
+                    "sad",
+                    "excited",
+                    "confused",
+                    "hopeful",
+                    "tired",
+                    "scared",
+                    "playful",
+                    "curious",
+                    "disappointed",
+                    "anxious",
+                    "overwhelmed"
+                ]
+            },
+            {
+                "category": "Social/Interpersonal Emotions",
+                "count": 6,
+                "labels": [
+                    "lonely",
+                    "joyful",
+                    "enthusiastic",
+                    "grateful",
+                    "frustrated",
+                    "embarrassed"
+                ]
+            },
+            {
+                "category": "Personality/Communication Styles",
+                "count": 8,
+                "labels": [
+                    "assertive",
+                    "confident",
+                    "insecure",
+                    "friendly",
+                    "humorous",
+                    "sarcastic",
+                    "gentle",
+                    "direct"
+                ]
+            },
+            {
+                "category": "Cognitive/Mental States",
+                "count": 4,
+                "labels": [
+                    "analytical",
+                    "thoughtful",
+                    "inquisitive",
+                    "mysterious"
+                ]
+            }
+        ],
+        "all_input_labels": [
+            "angry",
+            "sad",
+            "excited",
+            "confused",
+            "hopeful",
+            "tired",
+            "scared",
+            "playful",
+            "curious",
+            "disappointed",
+            "anxious",
+            "overwhelmed",
+            "lonely",
+            "joyful",
+            "enthusiastic",
+            "grateful",
+            "frustrated",
+            "embarrassed",
+            "assertive",
+            "confident",
+            "insecure",
+            "friendly",
+            "humorous",
+            "sarcastic",
+            "gentle",
+            "direct",
+            "analytical",
+            "thoughtful",
+            "inquisitive",
+            "mysterious"
+        ]
+    },
+    "output_system": {
+        "name": "BERT Response Personality Classifier",
+        "model": "tonepilot_bert_classifier.pt",
+        "total_output_labels": 73,
+        "description": "Maps input emotions to appropriate response personalities with confidence scores",
+        "threshold": 0.05,
+        "top_k": 3,
+        "default_fallback": [
+            "supportive",
+            "thoughtful",
+            "helpful"
+        ],
+        "output_categories": {
+            "Empathetic/Supportive": {
+                "count": 11,
+                "labels": [
+                    "calming",
+                    "compassionate",
+                    "compassionate_friend",
+                    "empathetic",
+                    "empathetic_listener",
+                    "gentle",
+                    "gentle_mentor",
+                    "nurturing_teacher",
+                    "reassuring",
+                    "supportive",
+                    "validating"
+                ]
+            },
+            "Direct/Assertive": {
+                "count": 7,
+                "labels": [
+                    "confident",
+                    "confident_flirt",
+                    "direct",
+                    "direct_ally",
+                    "directive",
+                    "practical_dreamer",
+                    "strategic"
+                ]
+            },
+            "Emotional States": {
+                "count": 10,
+                "labels": [
+                    "angry",
+                    "anxious",
+                    "confused",
+                    "excited",
+                    "hopeful",
+                    "joyful",
+                    "lonely",
+                    "overwhelmed",
+                    "sad",
+                    "tired"
+                ]
+            },
+            "Communication Styles": {
+                "count": 10,
+                "labels": [
+                    "cheeky",
+                    "humorous",
+                    "humorous (lightly)",
+                    "intellectual",
+                    "mysterious",
+                    "playful",
+                    "playful_partner",
+                    "sarcastic",
+                    "sarcastic_friend",
+                    "witty"
+                ]
+            },
+            "Personality Types": {
+                "count": 3,
+                "labels": [
+                    "calm_coach",
+                    "friendly",
+                    "motivational_coach"
+                ]
+            },
+            "Other": {
+                "count": 32,
+                "labels": [
+                    "analytical",
+                    "apologetic",
+                    "appreciative",
+                    "casual",
+                    "cautious",
+                    "celebratory",
+                    "clear",
+                    "complimentary",
+                    "congratulatory",
+                    "curious",
+                    "encouraging",
+                    "engaging",
+                    "enthusiastic",
+                    "flirty",
+                    "goal_focused",
+                    "helpful",
+                    "informative",
+                    "inquisitive",
+                    "insecure",
+                    "light-hearted",
+                    "light-humored",
+                    "patient",
+                    "personable",
+                    "problem-solving",
+                    "realistic",
+                    "resourceful",
+                    "speculative",
+                    "suggestive",
+                    "thoughtful",
+                    "upbeat",
+                    "warm",
+                    "zen_mirror"
+                ]
+            }
+        },
+        "all_output_labels": [
+            "analytical",
+            "angry",
+            "anxious",
+            "apologetic",
+            "appreciative",
+            "calm_coach",
+            "calming",
+            "casual",
+            "cautious",
+            "celebratory",
+            "cheeky",
+            "clear",
+            "compassionate",
+            "compassionate_friend",
+            "complimentary",
+            "confident",
+            "confident_flirt",
+            "confused",
+            "congratulatory",
+            "curious",
+            "direct",
+            "direct_ally",
+            "directive",
+            "empathetic",
+            "empathetic_listener",
+            "encouraging",
+            "engaging",
+            "enthusiastic",
+            "excited",
+            "flirty",
+            "friendly",
+            "gentle",
+            "gentle_mentor",
+            "goal_focused",
+            "helpful",
+            "hopeful",
+            "humorous",
+            "humorous (lightly)",
+            "informative",
+            "inquisitive",
+            "insecure",
+            "intellectual",
+            "joyful",
+            "light-hearted",
+            "light-humored",
+            "lonely",
+            "motivational_coach",
+            "mysterious",
+            "nurturing_teacher",
+            "overwhelmed",
+            "patient",
+            "personable",
+            "playful",
+            "playful_partner",
+            "practical_dreamer",
+            "problem-solving",
+            "realistic",
+            "reassuring",
+            "resourceful",
+            "sad",
+            "sarcastic",
+            "sarcastic_friend",
+            "speculative",
+            "strategic",
+            "suggestive",
+            "supportive",
+            "thoughtful",
+            "tired",
+            "upbeat",
+            "validating",
+            "warm",
+            "witty",
+            "zen_mirror"
+        ]
+    },
+    "response_parameters": {
+        "description": "Each response personality has specific parameters for prompt building and response length calculation",
+        "formula": "response_length = base + input_scale_factor * scale",
+        "source_file": "tonepilot/config/tonepilot_response_personality_parameters.json",
+        "parameter_details": {
+            "base": "Base word count for responses (15-35 words)",
+            "scale": "Multiplier for input-driven length adjustment (0.4-1.5)",
+            "tone_instruction": "Specific behavioral instructions for the AI personality"
+        },
+        "sample_parameters": [
+            {
+                "tag": "analytical",
+                "base": 30,
+                "scale": 1.0,
+                "tone_instruction": "Respond with logic, structured reasoning, and clarity. Break down concepts step by step and use objective language."
+            },
+            {
+                "tag": "casual",
+                "base": 20,
+                "scale": 0.5,
+                "tone_instruction": "Keep it chill and informal. Use everyday language like you're talking to a friend, not giving a lecture."
+            },
+            {
+                "tag": "empathetic_listener",
+                "base": 35,
+                "scale": 0.5,
+                "tone_instruction": "Respond as someone who listens deeply and without judgment. Prioritize emotional validation and gentle support."
+            }
+        ]
+    },
+    "mapping_examples": {
+        "description": "Examples of how input emotions map to output response personalities",
+        "examples": [
+            {
+                "input_emotion": "excited",
+                "confidence": 0.85,
+                "likely_outputs": [
+                    {
+                        "tag": "enthusiastic",
+                        "weight": 0.167,
+                        "instruction": "Respond with passion and excitement"
+                    },
+                    {
+                        "tag": "celebratory",
+                        "weight": 0.142,
+                        "instruction": "Express excitement and share in joy"
+                    },
+                    {
+                        "tag": "encouraging",
+                        "weight": 0.128,
+                        "instruction": "Cheer on with positive reinforcement"
+                    }
+                ]
+            },
+            {
+                "input_emotion": "confused",
+                "confidence": 0.72,
+                "likely_outputs": [
+                    {
+                        "tag": "helpful",
+                        "weight": 0.201,
+                        "instruction": "Provide clear, practical solutions"
+                    },
+                    {
+                        "tag": "informative",
+                        "weight": 0.183,
+                        "instruction": "Share useful, relevant facts"
+                    },
+                    {
+                        "tag": "patient",
+                        "weight": 0.156,
+                        "instruction": "Take time and show calm understanding"
+                    }
+                ]
+            },
+            {
+                "input_emotion": "anxious",
+                "confidence": 0.68,
+                "likely_outputs": [
+                    {
+                        "tag": "calming",
+                        "weight": 0.189,
+                        "instruction": "Use gentle, soothing language"
+                    },
+                    {
+                        "tag": "reassuring",
+                        "weight": 0.171,
+                        "instruction": "Calm worries and provide stability"
+                    },
+                    {
+                        "tag": "supportive",
+                        "weight": 0.154,
+                        "instruction": "Provide encouragement and reinforcement"
+                    }
+                ]
+            }
+        ]
+    },
+    "system_architecture": {
+        "pipeline": [
+            {
+                "step": 1,
+                "name": "Input Detection",
+                "process": "HF Tagger analyzes user text and detects emotional tones",
+                "input": "User text string",
+                "output": "Dictionary of emotions with confidence scores"
+            },
+            {
+                "step": 2,
+                "name": "Tone Mapping",
+                "process": "BERT classifier maps input emotions to response personalities",
+                "input": "Emotion labels as comma-separated text",
+                "output": "Top 3 response personalities with weights"
+            },
+            {
+                "step": 3,
+                "name": "Prompt Building",
+                "process": "Combines personality instructions and calculates response length",
+                "input": "Response personalities and weights",
+                "output": "Blended prompt with target word count"
+            },
+            {
+                "step": 4,
+                "name": "Response Generation",
+                "process": "AI generates contextually appropriate response",
+                "input": "Blended prompt + user query",
+                "output": "Tone-appropriate AI response"
+            }
+        ]
+    },
+    "deployment_modes": {
+        "local": {
+            "description": "Uses local BERT model file",
+            "pros": [
+                "Fast inference",
+                "No API dependencies",
+                "Full control"
+            ],
+            "cons": [
+                "Larger memory footprint",
+                "Local model management"
+            ],
+            "model_file": "tonepilot_bert_classifier.pt",
+            "size": "475 MB"
+        },
+        "hf_api": {
+            "description": "Uses Hugging Face Inference API",
+            "pros": [
+                "Minimal local resources",
+                "Auto-scaling",
+                "No model downloads"
+            ],
+            "cons": [
+                "API dependency",
+                "Network latency",
+                "Usage costs"
+            ],
+            "model_endpoint": "sdurgi/bert_emotion_response_classifier",
+            "status": "Pending API activation"
+        }
+    },
+    "statistics": {
+        "total_input_emotions": 30,
+        "total_output_personalities": 73,
+        "total_personality_parameters": 73,
+        "possible_input_combinations": "2^30 (over 1 billion)",
+        "possible_output_combinations": "C(73,3) = 62,196 (top 3 selections)",
+        "unique_mapping_possibilities": "30 → 73 many-to-many relationships",
+        "model_parameters": "125M (roberta-base + classification head)",
+        "training_data_size": "4000+ emotion-response pairs"
+    }
+}

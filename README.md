@@ -154,6 +154,12 @@ TonePilot uses a custom-trained BERT classifier for tone mapping. **The model is
 
 ### BERT Tone Classifier
 
+#### 🚀 **Quantized Model (Recommended)**
+- **File**: `tonepilot_bert_classifier_quantized.pt` (**119 MB** - 75% smaller!)
+- **Download**: [GitHub Releases](https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier_quantized.pt)
+- **Benefits**: 4x faster deployment, 75% less memory usage, same accuracy
+
+#### 📋 Original Model
 - **File**: `tonepilot_bert_classifier.pt` (475 MB)
 - **Download**: [GitHub Releases](https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt)
 - **Purpose**: Maps detected emotions to appropriate response personalities
@@ -169,14 +175,17 @@ TonePilot automatically handles model downloads and caching:
 
 **Manual Download** (if needed):
 ```bash
-# Only needed if automatic download fails
-wget https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt -P ~/.cache/tonepilot/
+# Download quantized model (recommended - 75% smaller)
+wget https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier_quantized.pt -P ~/.cache/tonepilot/
 
 # Or place in current directory
+curl -L -o tonepilot_bert_classifier_quantized.pt https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier_quantized.pt
+
+# Original model (if you need full precision)
 curl -L -o tonepilot_bert_classifier.pt https://github.com/sdurgi/tonepilot/releases/download/v0.1.0/tonepilot_bert_classifier.pt
 ```
 
-**Note**: Internet connection required only on first use for model download.
+**Note**: Internet connection required only on first use for model download. TonePilot automatically downloads the optimized quantized model (119MB) for faster performance.
 
 ## Examples
 
