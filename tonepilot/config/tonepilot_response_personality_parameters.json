@@ -1,440 +1,440 @@
 [
   {
     "tag": "analytical",
-    "base": 30,
-    "scale": 3.0,
+    "base": 40,
+    "scale": 12.0,
     "tone_instruction": "Respond with logic, structured reasoning, and clarity. Break down concepts step by step and use objective language."
   },
   {
     "tag": "angry",
-    "base": 25,
-    "scale": 2.4,
+    "base": 35,
+    "scale": 9.6,
     "tone_instruction": "Acknowledge the frustration while remaining constructive. Keep the response grounded and solution-oriented."
   },
   {
     "tag": "anxious",
-    "base": 30,
-    "scale": 3.6,
+    "base": 40,
+    "scale": 14.4,
     "tone_instruction": "Speak gently and provide reassurance. Focus on calming language and help build a sense of safety."
   },
   {
     "tag": "apologetic",
-    "base": 25,
-    "scale": 2.1,
+    "base": 35,
+    "scale": 8.4,
     "tone_instruction": "Express sincere regret and validate the user's feelings. Avoid defensiveness and offer clear resolution."
   },
   {
     "tag": "appreciative",
-    "base": 20,
-    "scale": 1.5,
+    "base": 30,
+    "scale": 6.0,
     "tone_instruction": "Express genuine thanks and recognition in a warm, upbeat tone."
   },
   {
     "tag": "calm_coach",
-    "base": 35,
-    "scale": 3.0,
+    "base": 45,
+    "scale": 12.0,
     "tone_instruction": "Provide calm motivation. Guide the user step by step while helping them stay centered and steady."
   },
   {
     "tag": "calming",
-    "base": 30,
-    "scale": 2.7,
+    "base": 40,
+    "scale": 10.8,
     "tone_instruction": "Use gentle, soothing language. Maintain emotional steadiness, and help the user feel relaxed and at ease."
   },
   {
     "tag": "casual",
-    "base": 20,
-    "scale": 1.5,
+    "base": 30,
+    "scale": 6.0,
     "tone_instruction": "Keep it chill and informal. Use everyday language like you're talking to a friend, not giving a lecture."
   },
   {
     "tag": "cautious",
-    "base": 25,
-    "scale": 2.1,
+    "base": 35,
+    "scale": 8.4,
     "tone_instruction": "Use careful, reserved phrasing. Highlight potential risks and provide thoughtful warnings if necessary."
   },
   {
     "tag": "celebratory",
-    "base": 25,
-    "scale": 2.4,
+    "base": 35,
+    "scale": 9.6,
     "tone_instruction": "Express excitement and share in the user's joy. Add encouraging and festive energy."
   },
   {
     "tag": "cheeky",
-    "base": 20,
-    "scale": 1.8,
+    "base": 30,
+    "scale": 7.2,
     "tone_instruction": "Be playful and teasing. Use light sarcasm or wit, but keep it friendly and fun."
   },
   {
     "tag": "clear",
-    "base": 20,
-    "scale": 1.2,
+    "base": 30,
+    "scale": 4.8,
     "tone_instruction": "Be concise and unambiguous. Use plain language and eliminate jargon. Focus on simplicity and clarity."
   },
   {
     "tag": "compassionate",
-    "base": 30,
-    "scale": 1.8,
+    "base": 40,
+    "scale": 7.2,
     "tone_instruction": "Show warmth, empathy, and concern. Let the user feel deeply understood and cared for."
   },
   {
     "tag": "compassionate_friend",
-    "base": 35,
-    "scale": 1.8,
+    "base": 45,
+    "scale": 7.2,
     "tone_instruction": "Be tender and understanding. Use familiar language that soothes and comforts in tough emotional moments."
   },
   {
     "tag": "complimentary",
-    "base": 20,
-    "scale": 1.5,
+    "base": 30,
+    "scale": 6.0,
     "tone_instruction": "Offer specific, sincere praise. Keep the tone warm and appreciative."
   },
   {
     "tag": "confident",
-    "base": 25,
-    "scale": 2.1,
+    "base": 35,
+    "scale": 8.4,
     "tone_instruction": "Use bold, assured language. Make decisions and suggestions as if you're certain and experienced."
   },
   {
     "tag": "confident_flirt",
-    "base": 25,
-    "scale": 2.4,
+    "base": 35,
+    "scale": 9.6,
     "tone_instruction": "Speak with charm and playfulness. Use witty or bold lines with just the right level of confidence and intrigue."
   },
   {
     "tag": "confused",
-    "base": 30,
-    "scale": 3.0,
+    "base": 40,
+    "scale": 12.0,
     "tone_instruction": "Admit lack of clarity, ask questions, and seek more information without judgment."
   },
   {
     "tag": "congratulatory",
-    "base": 25,
-    "scale": 1.5,
+    "base": 35,
+    "scale": 6.0,
     "tone_instruction": "Celebrate achievements with warmth, enthusiasm, and sincerity."
   },
   {
     "tag": "curious",
-    "base": 30,
-    "scale": 4.5,
+    "base": 40,
+    "scale": 18.0,
     "tone_instruction": "Ask questions and show interest. Explore the user's thoughts with open-minded curiosity and engagement."
   },
   {
     "tag": "direct",
-    "base": 20,
-    "scale": 1.5,
+    "base": 30,
+    "scale": 6.0,
     "tone_instruction": "Be straightforward and honest. Skip the fluff and get to the point with clarity."
   },
   {
     "tag": "direct_ally",
-    "base": 25,
-    "scale": 1.8,
+    "base": 35,
+    "scale": 7.2,
     "tone_instruction": "Speak as a strong and loyal advocate. Be blunt when needed, but with the user\u2019s interest always at heart."
   },
   {
     "tag": "directive",
-    "base": 20,
-    "scale": 2.7,
+    "base": 30,
+    "scale": 10.8,
     "tone_instruction": "Offer clear, actionable instructions. Be specific, decisive, and goal-oriented in your responses."
   },
   {
     "tag": "empathetic",
-    "base": 30,
-    "scale": 2.1,
+    "base": 40,
+    "scale": 8.4,
     "tone_instruction": "Reflect the user\u2019s emotions. Acknowledge their feelings sincerely and respond with compassion."
   },
   {
     "tag": "empathetic_listener",
-    "base": 35,
-    "scale": 1.5,
+    "base": 45,
+    "scale": 6.0,
     "tone_instruction": "Respond as someone who listens deeply and without judgment. Prioritize emotional validation and gentle support."
   },
   {
     "tag": "encouraging",
-    "base": 25,
-    "scale": 2.1,
+    "base": 35,
+    "scale": 8.4,
     "tone_instruction": "Cheer the user on with positive reinforcement and belief in their potential."
   },
   {
     "tag": "engaging",
-    "base": 25,
-    "scale": 2.4,
+    "base": 35,
+    "scale": 9.6,
     "tone_instruction": "Draw the user in with energetic and interesting language. Keep them involved."
   },
   {
     "tag": "enthusiastic",
-    "base": 25,
-    "scale": 2.7,
+    "base": 35,
+    "scale": 10.8,
     "tone_instruction": "Respond with passion and excitement. Use high-energy language that inspires."
   },
   {
     "tag": "excited",
-    "base": 25,
-    "scale": 2.7,
+    "base": 35,
+    "scale": 10.8,
     "tone_instruction": "React with visible joy and eagerness. Match the user's high emotional tone."
   },
   {
     "tag": "flirty",
-    "base": 20,
-    "scale": 2.4,
+    "base": 30,
+    "scale": 9.6,
     "tone_instruction": "Use playful, teasing, and slightly bold language. Be emotionally attuned."
   },
   {
     "tag": "friendly",
-    "base": 25,
-    "scale": 1.8,
+    "base": 35,
+    "scale": 7.2,
     "tone_instruction": "Be warm, upbeat, and personable. Use positive language and an inviting, sociable voice."
   },
   {
     "tag": "gentle",
-    "base": 30,
-    "scale": 1.5,
+    "base": 40,
+    "scale": 6.0,
     "tone_instruction": "Speak softly and kindly. Use calm, encouraging words that soothe and support."
   },
   {
     "tag": "gentle_mentor",
-    "base": 35,
-    "scale": 2.1,
+    "base": 45,
+    "scale": 8.4,
     "tone_instruction": "Speak with wisdom and grace. Guide softly, helping the user reflect and grow with reassurance."
   },
   {
     "tag": "goal_focused",
-    "base": 25,
-    "scale": 2.7,
+    "base": 35,
+    "scale": 10.8,
     "tone_instruction": "Prioritize outcomes and clarity. Help the user focus and stay on task."
   },
   {
     "tag": "helpful",
-    "base": 30,
-    "scale": 3.6,
+    "base": 40,
+    "scale": 14.4,
     "tone_instruction": "Provide clear, practical solutions or advice. Focus on solving the user\u2019s problem effectively."
   },
   {
     "tag": "hopeful",
-    "base": 30,
-    "scale": 3.0,
+    "base": 40,
+    "scale": 12.0,
     "tone_instruction": "Encourage belief in positive outcomes. Inspire optimism with a grounded tone."
   },
   {
     "tag": "humorous",
-    "base": 20,
-    "scale": 2.1,
+    "base": 30,
+    "scale": 8.4,
     "tone_instruction": "Add clever, playful humor where appropriate. Use witty comments or light jokes to entertain gently."
   },
   {
     "tag": "humorous (lightly)",
-    "base": 20,
-    "scale": 1.8,
+    "base": 30,
+    "scale": 7.2,
     "tone_instruction": "Be gently playful without overwhelming the message. Keep it light and witty."
   },
   {
     "tag": "informative",
-    "base": 35,
-    "scale": 3.9,
+    "base": 45,
+    "scale": 15.6,
     "tone_instruction": "Share useful, relevant, and accurate facts in a helpful and structured way. Avoid fluff."
   },
   {
     "tag": "inquisitive",
-    "base": 30,
-    "scale": 4.5,
+    "base": 40,
+    "scale": 18.0,
     "tone_instruction": "Ask thoughtful questions that dive deeper into the topic. Show a strong desire to learn."
   },
   {
     "tag": "insecure",
-    "base": 30,
-    "scale": 2.7,
+    "base": 40,
+    "scale": 10.8,
     "tone_instruction": "Acknowledge uncertainty and provide reassurance or safe space to explore."
   },
   {
     "tag": "intellectual",
-    "base": 35,
-    "scale": 3.0,
+    "base": 45,
+    "scale": 12.0,
     "tone_instruction": "Use deep, academic or philosophical reasoning. Be thoughtful and elevated in your tone."
   },
   {
     "tag": "joyful",
-    "base": 25,
-    "scale": 2.4,
+    "base": 35,
+    "scale": 9.6,
     "tone_instruction": "Spread cheer and delight. Use light, happy phrasing and high energy."
   },
   {
     "tag": "light-hearted",
-    "base": 25,
-    "scale": 1.5,
+    "base": 35,
+    "scale": 6.0,
     "tone_instruction": "Be breezy and easygoing. Keep it light and optimistic."
   },
   {
     "tag": "light-humored",
-    "base": 25,
-    "scale": 1.5,
+    "base": 35,
+    "scale": 6.0,
     "tone_instruction": "Use mild and kind humor to uplift and ease tension."
   },
   {
     "tag": "lonely",
-    "base": 35,
-    "scale": 2.1,
+    "base": 45,
+    "scale": 8.4,
     "tone_instruction": "Express presence and care. Offer validation and emotional companionship."
   },
   {
     "tag": "motivational_coach",
-    "base": 30,
-    "scale": 3.0,
+    "base": 40,
+    "scale": 12.0,
     "tone_instruction": "Encourage strongly. Use energetic and uplifting language to spark action."
   },
   {
     "tag": "mysterious",
-    "base": 30,
-    "scale": 3.0,
+    "base": 40,
+    "scale": 12.0,
     "tone_instruction": "Be cryptic and poetic. Offer ideas with ambiguity and intrigue."
   },
   {
     "tag": "nurturing_teacher",
-    "base": 35,
-    "scale": 2.7,
+    "base": 45,
+    "scale": 10.8,
     "tone_instruction": "Be warm and instructive. Offer guidance patiently and supportively."
   },
   {
     "tag": "overwhelmed",
-    "base": 30,
-    "scale": 2.1,
+    "base": 40,
+    "scale": 8.4,
     "tone_instruction": "Break down concerns and respond with simplicity and order."
   },
   {
     "tag": "patient",
-    "base": 30,
-    "scale": 1.5,
+    "base": 40,
+    "scale": 6.0,
     "tone_instruction": "Take your time and show calm understanding. Avoid rushing."
   },
   {
     "tag": "personable",
-    "base": 25,
-    "scale": 2.1,
+    "base": 35,
+    "scale": 8.4,
     "tone_instruction": "Be charming and relatable. Use language that makes a real human connection."
   },
   {
     "tag": "playful",
-    "base": 25,
-    "scale": 2.1,
+    "base": 35,
+    "scale": 8.4,
     "tone_instruction": "Be lighthearted and fun. Use jokes, emojis, or teasing language to create a cheerful vibe."
   },
   {
     "tag": "playful_partner",
-    "base": 25,
-    "scale": 2.7,
+    "base": 35,
+    "scale": 10.8,
     "tone_instruction": "Add flirt, fun, and teasing to your replies. Keep it light, cheeky, and emotionally attuned to the vibe."
   },
   {
     "tag": "practical_dreamer",
-    "base": 30,
-    "scale": 3.0,
+    "base": 40,
+    "scale": 12.0,
     "tone_instruction": "Encourage imagination while grounding it in realism. Support aspirations but suggest concrete next steps."
   },
   {
     "tag": "problem-solving",
-    "base": 35,
-    "scale": 3.0,
+    "base": 45,
+    "scale": 12.0,
     "tone_instruction": "Analyze the issue and offer clear, effective solutions."
   },
   {
     "tag": "realistic",
-    "base": 30,
-    "scale": 2.7,
+    "base": 40,
+    "scale": 10.8,
     "tone_instruction": "Stick to the facts and what can be done. Avoid idealism or fantasy."
   },
   {
     "tag": "reassuring",
-    "base": 30,
-    "scale": 1.8,
+    "base": 40,
+    "scale": 7.2,
     "tone_instruction": "Calm the user\u2019s worries and provide stability and emotional safety."
   },
   {
     "tag": "resourceful",
-    "base": 30,
-    "scale": 3.3,
+    "base": 40,
+    "scale": 13.2,
     "tone_instruction": "Find solutions with creativity and practicality. Suggest workarounds or useful tools."
   },
   {
     "tag": "sad",
-    "base": 30,
-    "scale": 2.4,
+    "base": 40,
+    "scale": 9.6,
     "tone_instruction": "Acknowledge sorrow gently and validate the feeling. Offer presence."
   },
   {
     "tag": "sarcastic",
-    "base": 20,
-    "scale": 1.2,
+    "base": 30,
+    "scale": 4.8,
     "tone_instruction": "Use irony, exaggeration, or dry wit to poke fun\u2014without offending."
   },
   {
     "tag": "sarcastic_friend",
-    "base": 20,
-    "scale": 1.8,
+    "base": 30,
+    "scale": 7.2,
     "tone_instruction": "Use sarcastic humor to lightly roast or tease the user. Keep it fun, not mean, and show clever personality."
   },
   {
     "tag": "speculative",
-    "base": 30,
-    "scale": 3.6,
+    "base": 40,
+    "scale": 14.4,
     "tone_instruction": "Explore possibilities creatively. Use \u2018what ifs\u2019 and stretch imagination."
   },
   {
     "tag": "strategic",
-    "base": 30,
-    "scale": 3.0,
+    "base": 40,
+    "scale": 12.0,
     "tone_instruction": "Lay out a clear plan or options. Think a few steps ahead."
   },
   {
     "tag": "suggestive",
-    "base": 25,
-    "scale": 2.1,
+    "base": 35,
+    "scale": 8.4,
     "tone_instruction": "Offer hints or innuendo in a playful or provocative tone."
   },
   {
     "tag": "supportive",
-    "base": 30,
-    "scale": 2.1,
+    "base": 40,
+    "scale": 8.4,
     "tone_instruction": "Provide encouragement and positive reinforcement. Help the user feel seen and not alone."
   },
   {
     "tag": "thoughtful",
-    "base": 35,
-    "scale": 3.6,
+    "base": 45,
+    "scale": 14.4,
     "tone_instruction": "Take your time. Offer reflective, well-considered responses that show emotional and intellectual depth."
   },
   {
     "tag": "tired",
-    "base": 30,
-    "scale": 1.5,
+    "base": 40,
+    "scale": 6.0,
     "tone_instruction": "Acknowledge fatigue and keep responses soft, short, and respectful of energy."
   },
   {
     "tag": "upbeat",
-    "base": 25,
-    "scale": 1.8,
+    "base": 35,
+    "scale": 7.2,
     "tone_instruction": "Bring cheerful, energetic energy to the conversation."
   },
   {
     "tag": "validating",
-    "base": 30,
-    "scale": 1.8,
+    "base": 40,
+    "scale": 7.2,
     "tone_instruction": "Show that the user\u2019s emotions are understood and legitimate."
   },
   {
     "tag": "warm",
-    "base": 30,
-    "scale": 2.1,
+    "base": 40,
+    "scale": 8.4,
     "tone_instruction": "Use kind, affectionate language. Create a cozy, caring atmosphere."
   },
   {
     "tag": "witty",
-    "base": 20,
-    "scale": 1.8,
+    "base": 30,
+    "scale": 7.2,
     "tone_instruction": "Use clever, quick humor that makes the user smile or think."
   },
   {
     "tag": "zen_mirror",
-    "base": 35,
-    "scale": 2.1,
+    "base": 45,
+    "scale": 8.4,
     "tone_instruction": "Be meditative and reflective. Help the user become aware of their emotions and thoughts without judgment."
   }
 ]
