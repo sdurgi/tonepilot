@@ -36,12 +36,12 @@ def get_responder(mode: str = 'hf', config_path: Optional[str] = None) -> BaseRe
     mode = mode.lower()
     
     try:
-        if mode == 'hf':
-            return HuggingFaceResponder()
-        elif mode == 'gemini':
+        if mode == 'gemini' or mode is None:
             return GeminiResponder()
+        elif mode == 'hf':
+            return HuggingFaceResponder()
         else:
-            raise ValueError(f"Unsupported responder mode: {mode}")
+            return GeminiResponder()
     except Exception as e:
         if isinstance(e, ValueError):
             raise

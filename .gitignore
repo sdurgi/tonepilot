@@ -66,5 +66,9 @@ pyiptoken.txt
 # Development scripts
 dev_scripts/
 
+# Testing scripts
+latency_test.py
+latency_test_improved.py
+
 # macOS
 .DS_Store

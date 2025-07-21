@@ -22,10 +22,13 @@ def get_tagger(config_path: Optional[str] = None, mode: Optional[str] = None) ->
     Raises:
         ValueError: If an invalid mode is specified
     """
+    # default for tagger is hf 
+    return HFTagger(config_path)
+
     # Default to HF if no mode specified
-    if mode is None or mode.lower() == 'hf':
-        return HFTagger(config_path)
-    elif mode.lower() == 'gemini':
-        return GeminiTagger()
-    else:
-        raise ValueError(f"Invalid tagger mode: {mode}. Must be 'hf' or 'gemini'") 
+    # if mode is None or mode.lower() == 'hf':
+    #     return HFTagger(config_path)
+    # elif mode.lower() == 'gemini':
+    #     return GeminiTagger()
+    # else:
+    #     raise ValueError(f"Invalid tagger mode: {mode}. Must be 'hf' or 'gemini'") 

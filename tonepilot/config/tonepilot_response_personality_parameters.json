@@ -32,13 +32,13 @@
   {
     "tag": "calm_coach",
     "base": 45,
-    "scale": 12.0,
+    "scale": 8.0,
     "tone_instruction": "Provide calm motivation. Guide the user step by step while helping them stay centered and steady."
   },
   {
     "tag": "calming",
     "base": 40,
-    "scale": 10.8,
+    "scale": 6.8,
     "tone_instruction": "Use gentle, soothing language. Maintain emotional steadiness, and help the user feel relaxed and at ease."
   },
   {
@@ -98,7 +98,7 @@
   {
     "tag": "confident_flirt",
     "base": 35,
-    "scale": 9.6,
+    "scale": 5.6,
     "tone_instruction": "Speak with charm and playfulness. Use witty or bold lines with just the right level of confidence and intrigue."
   },
   {
@@ -128,7 +128,7 @@
   {
     "tag": "direct_ally",
     "base": 35,
-    "scale": 7.2,
+    "scale": 4.2,
     "tone_instruction": "Speak as a strong and loyal advocate. Be blunt when needed, but with the user\u2019s interest always at heart."
   },
   {
@@ -176,7 +176,7 @@
   {
     "tag": "flirty",
     "base": 30,
-    "scale": 9.6,
+    "scale": 6.6,
     "tone_instruction": "Use playful, teasing, and slightly bold language. Be emotionally attuned."
   },
   {
@@ -218,13 +218,13 @@
   {
     "tag": "humorous",
     "base": 30,
-    "scale": 8.4,
+    "scale": 5.4,
     "tone_instruction": "Add clever, playful humor where appropriate. Use witty comments or light jokes to entertain gently."
   },
   {
     "tag": "humorous (lightly)",
     "base": 30,
-    "scale": 7.2,
+    "scale": 5.2,
     "tone_instruction": "Be gently playful without overwhelming the message. Keep it light and witty."
   },
   {
@@ -242,7 +242,7 @@
   {
     "tag": "insecure",
     "base": 40,
-    "scale": 10.8,
+    "scale": 8.8,
     "tone_instruction": "Acknowledge uncertainty and provide reassurance or safe space to explore."
   },
   {
@@ -254,7 +254,7 @@
   {
     "tag": "joyful",
     "base": 35,
-    "scale": 9.6,
+    "scale": 5.6,
     "tone_instruction": "Spread cheer and delight. Use light, happy phrasing and high energy."
   },
   {
@@ -266,13 +266,13 @@
   {
     "tag": "light-humored",
     "base": 35,
-    "scale": 6.0,
+    "scale": 5.0,
     "tone_instruction": "Use mild and kind humor to uplift and ease tension."
   },
   {
     "tag": "lonely",
     "base": 45,
-    "scale": 8.4,
+    "scale": 5.4,
     "tone_instruction": "Express presence and care. Offer validation and emotional companionship."
   },
   {
@@ -284,7 +284,7 @@
   {
     "tag": "mysterious",
     "base": 40,
-    "scale": 12.0,
+    "scale": 5.0,
     "tone_instruction": "Be cryptic and poetic. Offer ideas with ambiguity and intrigue."
   },
   {
@@ -296,31 +296,31 @@
   {
     "tag": "overwhelmed",
     "base": 40,
-    "scale": 8.4,
+    "scale": 3.4,
     "tone_instruction": "Break down concerns and respond with simplicity and order."
   },
   {
     "tag": "patient",
     "base": 40,
-    "scale": 6.0,
+    "scale": 3.0,
     "tone_instruction": "Take your time and show calm understanding. Avoid rushing."
   },
   {
     "tag": "personable",
     "base": 35,
-    "scale": 8.4,
+    "scale": 3.4,
     "tone_instruction": "Be charming and relatable. Use language that makes a real human connection."
   },
   {
     "tag": "playful",
     "base": 35,
-    "scale": 8.4,
+    "scale": 2.4,
     "tone_instruction": "Be lighthearted and fun. Use jokes, emojis, or teasing language to create a cheerful vibe."
   },
   {
     "tag": "playful_partner",
     "base": 35,
-    "scale": 10.8,
+    "scale": 3.8,
     "tone_instruction": "Add flirt, fun, and teasing to your replies. Keep it light, cheeky, and emotionally attuned to the vibe."
   },
   {
@@ -338,13 +338,13 @@
   {
     "tag": "realistic",
     "base": 40,
-    "scale": 10.8,
+    "scale": 5.8,
     "tone_instruction": "Stick to the facts and what can be done. Avoid idealism or fantasy."
   },
   {
     "tag": "reassuring",
     "base": 40,
-    "scale": 7.2,
+    "scale": 2.2,
     "tone_instruction": "Calm the user\u2019s worries and provide stability and emotional safety."
   },
   {
@@ -356,13 +356,13 @@
   {
     "tag": "sad",
     "base": 40,
-    "scale": 9.6,
+    "scale": 3.6,
     "tone_instruction": "Acknowledge sorrow gently and validate the feeling. Offer presence."
   },
   {
     "tag": "sarcastic",
     "base": 30,
-    "scale": 4.8,
+    "scale": 1.8,
     "tone_instruction": "Use irony, exaggeration, or dry wit to poke fun\u2014without offending."
   },
   {
